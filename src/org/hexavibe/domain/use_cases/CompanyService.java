@@ -6,7 +6,19 @@ public class CompanyService {
 
     private CompanyPersistencePort companyPersistencePort;
 
+    public CompanyService(CompanyPersistencePort companyPersistencePort) {
+        this.companyPersistencePort = companyPersistencePort;
+    }
+
     private Company getCompanyByBusinessName(String businessName) {
-        return companyPersistencePort.getCompanyByBusinessName(businessName);
+        return this.companyPersistencePort.getCompanyByBusinessName(businessName);
+    }
+
+    private Company getCompanyBySirenNumber(String sirenNumber) {
+        return this.companyPersistencePort.getCompanyBySirenNumber(sirenNumber);
+    }
+
+    private void saveCompany(Company company) {
+        this.companyPersistencePort.saveCompany(company);
     }
 }
