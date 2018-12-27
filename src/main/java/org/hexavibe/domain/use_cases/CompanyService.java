@@ -10,15 +10,15 @@ public class CompanyService {
         this.companyPersistencePort = companyPersistencePort;
     }
 
-    private Company getCompanyByBusinessName(String businessName) {
+    public Company getCompanyByBusinessName(String businessName) {
         return this.companyPersistencePort.getCompanyByBusinessName(businessName);
     }
 
-    private Company getCompanyBySirenNumber(String sirenNumber) {
+    public Company getCompanyBySirenNumber(String sirenNumber) {
         return this.companyPersistencePort.getCompanyBySirenNumber(sirenNumber);
     }
 
-    private void saveCompany(Company company) {
+    public void saveCompany(Company company) {
         this.companyPersistencePort.saveCompany(company);
     }
 }
