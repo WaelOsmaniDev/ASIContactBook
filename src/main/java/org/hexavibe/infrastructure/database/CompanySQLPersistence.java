@@ -2,7 +2,9 @@ package org.hexavibe.infrastructure.database;
 
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.use_cases.CompanyPersistencePort;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CompanySQLPersistence implements CompanyPersistencePort {
 
     private final CompanyJpaRepository companyJpaRepository;
@@ -13,12 +15,12 @@ public class CompanySQLPersistence implements CompanyPersistencePort {
 
     @Override
     public Company getCompanyByBusinessName(String businessName) {
-        return this.toCompany(companyJpaRepository.findByBusinessName());
+        return this.toCompany(companyJpaRepository.findByBusinessName(businessName));
     }
 
     @Override
     public Company getCompanyBySirenNumber(String sirenNumber) {
-        return this.toCompany(companyJpaRepository.findBySirenNumber());
+        return this.toCompany(companyJpaRepository.findBySirenNumber(sirenNumber));
     }
 
     @Override
