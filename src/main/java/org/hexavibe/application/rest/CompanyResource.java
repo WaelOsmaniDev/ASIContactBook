@@ -2,7 +2,7 @@ package org.hexavibe.application.rest;
 
 public class CompanyResource {
 
-    private Long id;
+    private String id;
 
     private String businessName;
 
@@ -11,17 +11,17 @@ public class CompanyResource {
     public CompanyResource() {
     }
 
-    public CompanyResource(Long id, String businessName, String sirenNumber) {
+    public CompanyResource(String id, String businessName, String sirenNumber) {
         this.id = id;
         this.businessName = businessName;
         this.sirenNumber = sirenNumber;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

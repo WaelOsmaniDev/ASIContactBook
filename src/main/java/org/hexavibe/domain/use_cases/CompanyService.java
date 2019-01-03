@@ -23,7 +23,7 @@ public class CompanyService implements CompanyAppPort {
     }
 
     @Override
-    public void saveCompany(Company company) {
-        this.companyPersistencePort.saveCompany(company);
+    public Company saveCompany(Company company) {
+        return this.companyPersistencePort.saveCompany(company);
     }
 }

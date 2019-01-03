@@ -2,7 +2,7 @@ package org.hexavibe.domain.entities;
 
 public class Company {
 
-    private Long id;
+    private String id;
     private String businessName;
     private String sirenNumber;
 
@@ -11,17 +11,17 @@ public class Company {
         this.sirenNumber = sirenNumber;
     }
 
-    public Company(Long id, String businessName, String sirenNumber) {
+    public Company(String id, String businessName, String sirenNumber) {
         this.id = id;
         this.businessName = businessName;
         this.sirenNumber = sirenNumber;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

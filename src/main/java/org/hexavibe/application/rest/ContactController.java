@@ -1,8 +1,6 @@
 package org.hexavibe.application.rest;
 
 import org.hexavibe.domain.use_cases.ContactAppPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,25 +14,24 @@ public class ContactController {
     }
 
     @GetMapping("/{id}")
-    public ContactResource getCompanyById(@PathVariable Long id) {
+    public ContactResource getCompanyById(@PathVariable String id) {
         return ContactAssembler.toResource(contactAppPort.getContactById(id));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity addContact(@RequestBody ContactResource contactResource) {
+    public ContactResource addContact(@RequestBody ContactResource contactResource) {
 
-        this.contactAppPort.saveContact(ContactAssembler.toEntity(contactResource));
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ContactAssembler.toResource(
+                this.contactAppPort.saveContact(ContactAssembler.toEntity(contactResource))
+        );
     }
 
     @PutMapping("/{id}/company")
-    public ResponseEntity updateCompanyOfContact(@PathVariable Long id, @RequestBody CompanyResource newCompany) {
+    public ContactResource updateCompanyOfContact(@PathVariable String id, @RequestBody CompanyResource newCompany) {
 
-        this.contactAppPort.updateCompanyOfContact(id, CompanyAssembler.toEntity(newCompany));
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ContactAssembler.toResource(
+                this.contactAppPort.updateCompanyOfContact(id, CompanyAssembler.toEntity(newCompany))
+        );
     }
-
 
 }

@@ -5,9 +5,9 @@ import org.hexavibe.domain.entities.Contact;
 
 public interface ContactAppPort {
 
-    Contact getContactById(Long id);
+    Contact getContactById(String id);
 
-    void updateCompanyOfContact(Long id, Company newCompany);
+    Contact updateCompanyOfContact(String id, Company newCompany);
 
-    void saveContact(Contact contact);
+    Contact saveContact(Contact contact);
 }

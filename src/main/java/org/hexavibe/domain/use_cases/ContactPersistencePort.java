@@ -6,9 +6,9 @@ import org.hexavibe.infrastructure.database.sql.ContactNotFoundException;
 
 public interface ContactPersistencePort {
 
-    Contact getContactById(Long id) throws ContactNotFoundException;
+    Contact getContactById(String id) throws ContactNotFoundException;
 
-    void updateCompanyOfContact(Long id, Company newCompany) throws ContactNotFoundException;
+    Contact updateCompanyOfContact(String id, Company newCompany) throws ContactNotFoundException;
 
-    void saveContact(Contact contact);
+    Contact saveContact(Contact contact);
 }

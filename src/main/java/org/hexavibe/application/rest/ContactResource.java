@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class ContactResource {
 
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
 
@@ -20,7 +20,7 @@ public class ContactResource {
     public ContactResource() {
     }
 
-    public ContactResource(Long id, String firstName, String lastName, LocalDate birthdate, String promo, CompanyResource company) {
+    public ContactResource(String id, String firstName, String lastName, LocalDate birthdate, String promo, CompanyResource company) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,11 +29,11 @@ public class ContactResource {
         this.company = company;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

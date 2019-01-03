@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyJpaRepository extends JpaRepository<CompanyJpa, Long> {
+public interface CompanyJpaRepository extends JpaRepository<CompanyJpa, String> {
 
     CompanyJpa findByBusinessName(String businessName);
 

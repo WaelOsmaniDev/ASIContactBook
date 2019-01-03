@@ -8,5 +8,5 @@ public interface CompanyPersistencePort {
 
     Company getCompanyBySirenNumber(String sirenNumber);
 
-    void saveCompany(Company company);
+    Company saveCompany(Company company);
 }

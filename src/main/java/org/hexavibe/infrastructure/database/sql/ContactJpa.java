@@ -1,5 +1,7 @@
 package org.hexavibe.infrastructure.database.sql;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,8 +9,9 @@ import java.time.LocalDate;
 @Table(name = "contact")
 public class ContactJpa {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(nullable = false)
     private String firstName;
@@ -21,11 +24,11 @@ public class ContactJpa {
     @ManyToOne(cascade = CascadeType.ALL)
     private CompanyJpa companyJpa;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -15,7 +15,7 @@ public class ContactService implements ContactAppPort {
     }
 
     @Override
-    public Contact getContactById(Long id) {
+    public Contact getContactById(String id) {
         try {
             return this.contactPersistencePort.getContactById(id);
         } catch (ContactNotFoundException e) {
@@ -25,16 +25,17 @@ public class ContactService implements ContactAppPort {
     }
 
     @Override
-    public void updateCompanyOfContact(Long id, Company newCompany) {
+    public Contact updateCompanyOfContact(String id, Company newCompany) {
         try {
-            this.contactPersistencePort.updateCompanyOfContact(id, newCompany);
+            return this.contactPersistencePort.updateCompanyOfContact(id, newCompany);
         } catch (ContactNotFoundException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
-    public void saveContact(Contact contact) {
-        this.contactPersistencePort.saveContact(contact);
+    public Contact saveContact(Contact contact) {
+        return this.contactPersistencePort.saveContact(contact);
     }
 }

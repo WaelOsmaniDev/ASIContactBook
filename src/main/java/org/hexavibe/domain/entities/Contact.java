@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Contact {
 
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
     private LocalDate birthdate;
     private String promo;
     private Company company;
 
-    public Contact(Long id, String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
+    public Contact(String id, String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,11 +28,11 @@ public class Contact {
         this.company = company;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

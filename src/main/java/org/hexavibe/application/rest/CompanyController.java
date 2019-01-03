@@ -28,9 +28,9 @@ public class CompanyController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity addCompany(@RequestBody CompanyResource companyResource) {
-        companyAppPort.saveCompany(CompanyAssembler.toEntity(companyResource));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-
+    public CompanyResource addCompany(@RequestBody CompanyResource companyResource) {
+        return CompanyAssembler.toResource(
+                companyAppPort.saveCompany(CompanyAssembler.toEntity(companyResource))
+        );
     }
 }
