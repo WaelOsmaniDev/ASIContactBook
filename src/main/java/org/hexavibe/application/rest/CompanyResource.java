@@ -1,18 +1,27 @@
 package org.hexavibe.application.rest;
 
-public class CompanyApi {
+public class CompanyResource {
 
-    private String id;
+    private Long id;
 
     private String businessName;
 
     private String sirenNumber;
 
-    public String getId() {
+    public CompanyResource() {
+    }
+
+    public CompanyResource(Long id, String businessName, String sirenNumber) {
+        this.id = id;
+        this.businessName = businessName;
+        this.sirenNumber = sirenNumber;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

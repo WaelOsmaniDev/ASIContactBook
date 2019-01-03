@@ -1,26 +1,27 @@
-package org.hexavibe.domain.entities;
+package org.hexavibe.application.rest;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
-public class Contact {
+public class ContactResource {
 
     private Long id;
     private String firstName;
     private String lastName;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     private String promo;
-    private Company company;
 
-    public Contact(Long id, String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.promo = promo;
-        this.company = company;
+
+    private CompanyResource company;
+
+    public ContactResource() {
     }
 
-    public Contact(String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
+    public ContactResource(Long id, String firstName, String lastName, LocalDate birthdate, String promo, CompanyResource company) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -68,11 +69,11 @@ public class Contact {
         this.promo = promo;
     }
 
-    public Company getCompany() {
+    public CompanyResource getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyResource company) {
         this.company = company;
     }
 }

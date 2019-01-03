@@ -1,11 +1,9 @@
 package org.hexavibe.application.rest;
 
-import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.use_cases.CompanyAppPort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/companies")
@@ -17,17 +15,22 @@ public class CompanyController {
         this.companyAppPort = companyAppPort;
     }
 
-    @GetMapping
-    public CompanyApi getCompanyByBusinessName(@RequestParam(name = "businessName", required = false) String businessName) {
-        return this.toCompanyApi(companyAppPort.getCompanyByBusinessName(businessName));
+    @GetMapping(params = "businessName")
+    public CompanyResource getCompanyByBusinessName(@RequestParam(name = "businessName") String businessName) {
+        return CompanyAssembler.toResource(companyAppPort.getCompanyByBusinessName(businessName));
     }
 
-    private CompanyApi toCompanyApi(Company company) {
-        CompanyApi companyApi = new CompanyApi();
+    @GetMapping(params = "sirenNumber")
+    public CompanyResource getCompanyBySirenNumber(
+            @RequestParam(name = "sirenNumber") String sirenNumber) {
+        return CompanyAssembler.toResource(
+                companyAppPort.getCompanyBySirenNumber(sirenNumber));
+    }
 
-        companyApi.setBusinessName(company.getBusinessName());
-        companyApi.setSirenNumber(company.getSirenNumber());
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity addCompany(@RequestBody CompanyResource companyResource) {
+        companyAppPort.saveCompany(CompanyAssembler.toEntity(companyResource));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
 
-        return companyApi;
     }
 }

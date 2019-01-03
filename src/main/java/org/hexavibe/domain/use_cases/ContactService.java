@@ -2,8 +2,11 @@ package org.hexavibe.domain.use_cases;
 
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.entities.Contact;
+import org.hexavibe.infrastructure.database.sql.ContactNotFoundException;
+import org.springframework.stereotype.Component;
 
-public class ContactService {
+@Component
+public class ContactService implements ContactAppPort {
 
     private ContactPersistencePort contactPersistencePort;
 
@@ -11,15 +14,27 @@ public class ContactService {
         this.contactPersistencePort = contactPersistencePort;
     }
 
-    private Contact getContactById(int id) {
-        return this.contactPersistencePort.getContactById(id);
+    @Override
+    public Contact getContactById(Long id) {
+        try {
+            return this.contactPersistencePort.getContactById(id);
+        } catch (ContactNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private void updateCompanyOfContact(Contact contact, Company newCompany) {
-        this.contactPersistencePort.updateCompanyOfContact(contact, newCompany);
+    @Override
+    public void updateCompanyOfContact(Long id, Company newCompany) {
+        try {
+            this.contactPersistencePort.updateCompanyOfContact(id, newCompany);
+        } catch (ContactNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void saveContact(Contact contact) {
+    @Override
+    public void saveContact(Contact contact) {
         this.contactPersistencePort.saveContact(contact);
     }
 }

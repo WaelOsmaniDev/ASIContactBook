@@ -1,32 +1,25 @@
-package org.hexavibe.domain.entities;
+package org.hexavibe.infrastructure.database.sql;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class Contact {
-
+@Entity
+@Table(name = "contact")
+public class ContactJpa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
     private LocalDate birthdate;
     private String promo;
-    private Company company;
 
-    public Contact(Long id, String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.promo = promo;
-        this.company = company;
-    }
-
-    public Contact(String firstName, String lastName, LocalDate birthdate, String promo, Company company) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.promo = promo;
-        this.company = company;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CompanyJpa companyJpa;
 
     public Long getId() {
         return id;
@@ -68,11 +61,11 @@ public class Contact {
         this.promo = promo;
     }
 
-    public Company getCompany() {
-        return company;
+    public CompanyJpa getCompanyJpa() {
+        return companyJpa;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompanyJpa(CompanyJpa companyJpa) {
+        this.companyJpa = companyJpa;
     }
 }
