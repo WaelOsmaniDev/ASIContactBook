@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +31,34 @@ class CompanyServiceTest {
 
         //WHEN
         Company companyResult = this.companyService.getCompanyByBusinessName("MockBusiness");
+
+        //THEN
+        assertEquals(companyMock, companyResult);
+    }
+
+    @Test
+    @DisplayName("Get Company by SirenNumber")
+    void getCompanyBySirenNumberTest() {
+        //GIVEN
+        Company companyMock = new Company("MockBusiness", "21");
+        Mockito.doReturn(companyMock).when(companyPersistencePort).getCompanyBySirenNumber(anyString());
+
+        //WHEN
+        Company companyResult = this.companyService.getCompanyBySirenNumber("MockBusiness");
+
+        //THEN
+        assertEquals(companyMock, companyResult);
+    }
+
+    @Test
+    @DisplayName("Save Company")
+    void saveCompanyTest() {
+        //GIVEN
+        Company companyMock = new Company("MockBusiness", "21");
+        Mockito.doReturn(companyMock).when(companyPersistencePort).saveCompany(any(Company.class));
+
+        //WHEN
+        Company companyResult = this.companyService.saveCompany(companyMock);
 
         //THEN
         assertEquals(companyMock, companyResult);
