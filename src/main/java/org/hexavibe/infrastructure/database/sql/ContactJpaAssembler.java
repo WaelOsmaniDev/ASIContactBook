@@ -4,7 +4,7 @@ import org.hexavibe.domain.entities.Contact;
 
 public final class ContactJpaAssembler {
 
-    public ContactJpaAssembler() {
+    private ContactJpaAssembler() {
     }
 
     public static Contact toContact(ContactJpa contactJpa) {

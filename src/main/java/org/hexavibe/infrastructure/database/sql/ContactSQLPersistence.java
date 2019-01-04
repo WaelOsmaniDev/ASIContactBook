@@ -18,19 +18,29 @@ public class ContactSQLPersistence implements ContactPersistencePort {
     }
 
     @Override
-    public Contact getContactById(String id) throws ContactNotFoundException {
+    public Contact getContactById(String id) throws ContactJpaNotFoundException {
         return ContactJpaAssembler.toContact(
                 this.contactJpaRepository.findById(id)
-                        .orElseThrow(() -> new ContactNotFoundException(String.format("No Contact matching the id: %d, was found", id)))
+                        .orElseThrow(() -> new ContactJpaNotFoundException(String.format("No Contact matching the id: %s, was found", id)))
         );
     }
 
     @Override
-    public Contact updateCompanyOfContact(String id, Company newCompany) throws ContactNotFoundException {
+    public Contact updateCompanyOfContact(String id, Company newCompany) throws ContactJpaNotFoundException {
 
-        ContactJpa contactJpa = this.contactJpaRepository.findById(id).orElseThrow(() -> new ContactNotFoundException("The contact you want to update is not present"));
+        ContactJpa contactJpa = this.contactJpaRepository.findById(id).orElseThrow(() -> new ContactJpaNotFoundException(
+                String.format("The contact %s, you want to update is not present"
+                        , id)));
 
-        contactJpa.setCompanyJpa(CompanyJpaAssembler.toCompanyJpa(newCompany));
+        CompanyJpa companyJpaInDB = this.companyJpaRepository.findBySirenNumber(newCompany.getSirenNumber());
+
+        if (companyJpaInDB != null) {
+            companyJpaInDB.setBusinessName(newCompany.getBusinessName());
+            contactJpa.setCompanyJpa(companyJpaInDB);
+        } else {
+            contactJpa.setCompanyJpa(CompanyJpaAssembler.toCompanyJpa(newCompany));
+        }
+
 
         return ContactJpaAssembler.toContact(
                 this.contactJpaRepository.save(contactJpa)
@@ -39,7 +49,7 @@ public class ContactSQLPersistence implements ContactPersistencePort {
 
     @Override
     public Contact saveContact(Contact contact) {
-        CompanyJpa companyJpa = this.companyJpaRepository.findByBusinessName(contact.getCompany().getBusinessName());
+        CompanyJpa companyJpa = this.companyJpaRepository.findBySirenNumber(contact.getCompany().getSirenNumber());
         ContactJpa contactJpa = ContactJpaAssembler.toContactJpa(contact);
 
         if (companyJpa != null) {

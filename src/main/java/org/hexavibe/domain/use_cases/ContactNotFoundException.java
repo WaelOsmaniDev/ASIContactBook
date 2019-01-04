@@ -1,4 +1,4 @@
-package org.hexavibe.infrastructure.database.sql;
+package org.hexavibe.domain.use_cases;
 
 public class ContactNotFoundException extends Exception {
 

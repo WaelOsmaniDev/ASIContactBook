@@ -2,9 +2,9 @@ package org.hexavibe.infrastructure.database.nosql;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface CompanyMongoRepository extends MongoRepository<CompanyNoSQL, Long> {
+public interface CompanyMongoRepository extends MongoRepository<CompanyMongoDB, String> {
 
-    CompanyNoSQL findByBusinessName(String businessName);
+    CompanyMongoDB findByBusinessName(String businessName);
 
-    CompanyNoSQL findBySirenNumber(String sirenNumber);
+    CompanyMongoDB findBySirenNumber(String sirenNumber);
 }

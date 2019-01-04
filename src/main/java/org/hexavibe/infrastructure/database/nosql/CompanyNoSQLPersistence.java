@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class CompanyNoSQLPersistence implements CompanyPersistencePort {
 
     private final CompanyMongoRepository companyMongoRepository;
@@ -18,19 +19,26 @@ public class CompanyNoSQLPersistence implements CompanyPersistencePort {
 
     @Override
     public Company getCompanyByBusinessName(String businessName) {
-        return CompanyNoSQLAssembler.toCompany(this.companyMongoRepository.findByBusinessName(businessName));
+        return CompanyMongoAssembler.toCompany(this.companyMongoRepository.findByBusinessName(businessName));
     }
 
     @Override
     public Company getCompanyBySirenNumber(String sirenNumber) {
-        return CompanyNoSQLAssembler.toCompany(this.companyMongoRepository.findBySirenNumber(sirenNumber));
+        return CompanyMongoAssembler.toCompany(this.companyMongoRepository.findBySirenNumber(sirenNumber));
     }
 
     @Override
     public Company saveCompany(Company company) {
-        CompanyNoSQL companyNoSQL = CompanyNoSQLAssembler.toCompanyNoSQL(company);
-        companyNoSQL.set_id(ObjectId.get());
-        return CompanyNoSQLAssembler.toCompany(this.companyMongoRepository
-                .save(companyNoSQL));
+        CompanyMongoDB companyMongoDBInDB = this.companyMongoRepository.findBySirenNumber(company.getSirenNumber());
+
+        if (companyMongoDBInDB != null) {
+            return CompanyMongoAssembler.toCompany(companyMongoDBInDB);
+        } else {
+
+            CompanyMongoDB companyMongoDB = CompanyMongoAssembler.toCompanyMongoDB(company);
+            companyMongoDB.set_id(ObjectId.get());
+            return CompanyMongoAssembler.toCompany(this.companyMongoRepository
+                    .save(companyMongoDB));
+        }
     }
 }

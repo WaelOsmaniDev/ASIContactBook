@@ -2,7 +2,10 @@ package org.hexavibe.application.rest;
 
 import org.hexavibe.domain.entities.Contact;
 
-public class ContactAssembler {
+public final class ContactAssembler {
+
+    private ContactAssembler() {
+    }
 
     public static ContactResource toResource(Contact contact) {
         ContactResource contactResource = new ContactResource();

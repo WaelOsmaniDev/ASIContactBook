@@ -6,24 +6,24 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "companies")
-public class CompanyNoSQL {
+public class CompanyMongoDB {
 
     @Id
     public ObjectId _id;
     private String businessName;
     private String sirenNumber;
 
-    public CompanyNoSQL() {
+    public CompanyMongoDB() {
     }
 
-    public CompanyNoSQL(ObjectId _id, String businessName, String sirenNumber) {
+    public CompanyMongoDB(ObjectId _id, String businessName, String sirenNumber) {
         this._id = _id;
         this.businessName = businessName;
         this.sirenNumber = sirenNumber;
     }
 
     // ObjectId needs to be converted to string
-    public String get_id() { //TODO change id from Long to String
+    public String get_id() {
         return _id.toHexString();
     }
 

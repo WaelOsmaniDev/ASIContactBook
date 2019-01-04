@@ -1,8 +1,6 @@
 package org.hexavibe.application.rest;
 
 import org.hexavibe.domain.use_cases.CompanyAppPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
