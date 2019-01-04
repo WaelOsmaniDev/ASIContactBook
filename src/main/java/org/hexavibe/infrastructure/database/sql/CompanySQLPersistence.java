@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@Primary
 public class CompanySQLPersistence implements CompanyPersistencePort {
 
     private final CompanyJpaRepository companyJpaRepository;

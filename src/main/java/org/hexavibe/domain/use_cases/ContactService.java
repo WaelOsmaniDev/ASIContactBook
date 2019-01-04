@@ -4,6 +4,8 @@ import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.entities.Contact;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ContactService implements ContactAppPort {
 
@@ -36,5 +38,10 @@ public class ContactService implements ContactAppPort {
     @Override
     public Contact saveContact(Contact contact) {
         return this.contactPersistencePort.saveContact(contact);
+    }
+
+    @Override
+    public List<Contact> getAllContacts() {
+        return this.contactPersistencePort.getAllContacts();
     }
 }

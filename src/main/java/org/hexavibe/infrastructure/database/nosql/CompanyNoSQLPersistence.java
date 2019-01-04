@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Primary
 public class CompanyNoSQLPersistence implements CompanyPersistencePort {
 
     private final CompanyMongoRepository companyMongoRepository;

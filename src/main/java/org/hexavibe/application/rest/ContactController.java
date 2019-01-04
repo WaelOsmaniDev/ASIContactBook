@@ -3,6 +3,9 @@ package org.hexavibe.application.rest;
 import org.hexavibe.domain.use_cases.ContactAppPort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/contacts")
 public class ContactController {
@@ -16,6 +19,14 @@ public class ContactController {
     @GetMapping("/{id}")
     public ContactResource getCompanyById(@PathVariable String id) {
         return ContactAssembler.toResource(contactAppPort.getContactById(id));
+    }
+
+    @GetMapping
+    public List<ContactResource> getAllContacts() {
+        return this.contactAppPort.getAllContacts()
+                .stream()
+                .map(ContactAssembler::toResource)
+                .collect(Collectors.toList());
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

@@ -7,7 +7,11 @@ import org.hexavibe.domain.use_cases.ContactPersistencePort;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
+@Primary
 public class ContactNoSQLPersistence implements ContactPersistencePort {
 
     private final ContactMongoRepository contactMongoRepository;
@@ -75,5 +79,13 @@ public class ContactNoSQLPersistence implements ContactPersistencePort {
         return ContactMongoAssembler.toContact(
                 this.contactMongoRepository.save(contactMongoDB)
         );
+    }
+
+    @Override
+    public List<Contact> getAllContacts() {
+        return this.contactMongoRepository.findAll()
+                .stream()
+                .map(ContactMongoAssembler::toContact)
+                .collect(Collectors.toList());
     }
 }

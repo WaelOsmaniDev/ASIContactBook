@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -77,5 +79,25 @@ class ContactServiceTest {
 
         //THEN
         assertEquals(contactMock, contactResult);
+    }
+
+    @Test
+    @DisplayName("Get All Contacts")
+    void getAllContactsTest() {
+        //GIVEN
+        Company companyMock = new Company("MockBusiness", "21");
+        Contact contactMock1 = new Contact(
+                "uuid21","Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
+        Contact contactMock2 = new Contact(
+                "uuid212","Mickey2", "Mouse2", LocalDate.of(1912, 03, 22), "1992", companyMock);
+        List<Contact> contactsMock = Arrays.asList(contactMock1, contactMock2);
+
+        Mockito.doReturn(contactsMock).when(contactPersistencePort).getAllContacts();
+
+        //WHEN
+        List<Contact> contactsResult = this.contactService.getAllContacts();
+
+        //THEN
+        assertEquals(contactsMock, contactsResult);
     }
 }

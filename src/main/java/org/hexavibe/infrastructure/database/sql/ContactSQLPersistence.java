@@ -6,8 +6,10 @@ import org.hexavibe.domain.use_cases.ContactPersistencePort;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-@Primary
 public class ContactSQLPersistence implements ContactPersistencePort {
 
     private final ContactJpaRepository contactJpaRepository;
@@ -51,15 +53,26 @@ public class ContactSQLPersistence implements ContactPersistencePort {
 
     @Override
     public Contact saveContact(Contact contact) {
-        CompanyJpa companyJpa = this.companyJpaRepository.findBySirenNumber(contact.getCompany().getSirenNumber());
-        ContactJpa contactJpa = ContactJpaAssembler.toContactJpa(contact);
+        ContactJpa contactJpa = this.contactJpaRepository.findContactJpaByFirstNameAndLastNameAndAndBirthdate(
+                contact.getFirstName(), contact.getLastName(), contact.getBirthdate()
+        ).orElse(ContactJpaAssembler.toContactJpa(contact));
 
-        if (companyJpa != null) {
-            contactJpa.setCompanyJpa(companyJpa);
+        CompanyJpa companyJpaInDB = this.companyJpaRepository.findBySirenNumber(contact.getCompany().getSirenNumber());
+
+        if (companyJpaInDB != null) {
+            contactJpa.setCompanyJpa(companyJpaInDB);
         }
 
         return ContactJpaAssembler.toContact(
                 this.contactJpaRepository.save(contactJpa)
         );
+    }
+
+    @Override
+    public List<Contact> getAllContacts() {
+        return this.contactJpaRepository.findAll()
+                .stream()
+                .map(ContactJpaAssembler::toContact)
+                .collect(Collectors.toList());
     }
 }
