@@ -9,6 +9,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -64,4 +67,20 @@ class CompanyServiceTest {
         assertEquals(companyMock, companyResult);
     }
 
+    @Test
+    @DisplayName("Get All Companies")
+    void getAllCompaniesTest() {
+        //GIVEN
+        Company companyMock1 = new Company("MockBusiness1", "211");
+        Company companyMock2 = new Company("MockBusiness2", "212");
+        List<Company> companiesMock = Arrays.asList(companyMock1, companyMock2);
+        Mockito.doReturn(companiesMock).when(companyPersistencePort).getAllCompanies();
+
+
+        //WHEN
+        List<Company> companiesResult = this.companyService.getAllCompanies();
+
+        //THEN
+        assertEquals(companiesMock, companiesResult);
+    }
 }

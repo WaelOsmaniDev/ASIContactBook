@@ -2,9 +2,14 @@ package org.hexavibe.infrastructure.database.sql;
 
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.use_cases.CompanyPersistencePort;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
+@Primary
 public class CompanySQLPersistence implements CompanyPersistencePort {
 
     private final CompanyJpaRepository companyJpaRepository;
@@ -32,4 +37,11 @@ public class CompanySQLPersistence implements CompanyPersistencePort {
         return CompanyJpaAssembler.toCompany(companyJpaInDB);
     }
 
+    @Override
+    public List<Company> getAllCompanies() {
+        return this.companyJpaRepository.findAll()
+                .stream()
+                .map(CompanyJpaAssembler::toCompany)
+                .collect(Collectors.toList());
+    }
 }

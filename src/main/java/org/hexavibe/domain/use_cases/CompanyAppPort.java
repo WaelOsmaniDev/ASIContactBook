@@ -2,6 +2,8 @@ package org.hexavibe.domain.use_cases;
 
 import org.hexavibe.domain.entities.Company;
 
+import java.util.List;
+
 public interface CompanyAppPort {
 
     Company getCompanyByBusinessName(String businessName);
@@ -9,4 +11,6 @@ public interface CompanyAppPort {
     Company getCompanyBySirenNumber(String sirenNumber);
 
     Company saveCompany(Company company);
+
+    List<Company> getAllCompanies();
 }

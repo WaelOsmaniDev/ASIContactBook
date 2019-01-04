@@ -3,6 +3,8 @@ package org.hexavibe.domain.use_cases;
 import org.hexavibe.domain.entities.Company;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CompanyService implements CompanyAppPort {
 
@@ -25,5 +27,10 @@ public class CompanyService implements CompanyAppPort {
     @Override
     public Company saveCompany(Company company) {
         return this.companyPersistencePort.saveCompany(company);
+    }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        return this.companyPersistencePort.getAllCompanies();
     }
 }

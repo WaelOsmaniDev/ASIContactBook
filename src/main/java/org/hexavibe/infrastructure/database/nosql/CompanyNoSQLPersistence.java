@@ -6,8 +6,10 @@ import org.hexavibe.domain.use_cases.CompanyPersistencePort;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-@Primary
 public class CompanyNoSQLPersistence implements CompanyPersistencePort {
 
     private final CompanyMongoRepository companyMongoRepository;
@@ -40,5 +42,13 @@ public class CompanyNoSQLPersistence implements CompanyPersistencePort {
             return CompanyMongoAssembler.toCompany(this.companyMongoRepository
                     .save(companyMongoDB));
         }
+    }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        return this.companyMongoRepository.findAll()
+                .stream()
+                .map(CompanyMongoAssembler::toCompany)
+                .collect(Collectors.toList());
     }
 }

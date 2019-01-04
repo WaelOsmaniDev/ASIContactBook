@@ -3,6 +3,9 @@ package org.hexavibe.application.rest;
 import org.hexavibe.domain.use_cases.CompanyAppPort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/companies")
 public class CompanyController {
@@ -23,6 +26,14 @@ public class CompanyController {
             @RequestParam(name = "sirenNumber") String sirenNumber) {
         return CompanyAssembler.toResource(
                 companyAppPort.getCompanyBySirenNumber(sirenNumber));
+    }
+
+    @GetMapping
+    public List<CompanyResource> getAllCompanies() {
+        return this.companyAppPort.getAllCompanies()
+                .stream()
+                .map(CompanyAssembler::toResource)
+                .collect(Collectors.toList());
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

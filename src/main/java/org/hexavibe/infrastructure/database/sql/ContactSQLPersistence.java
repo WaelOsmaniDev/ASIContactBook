@@ -3,9 +3,11 @@ package org.hexavibe.infrastructure.database.sql;
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.entities.Contact;
 import org.hexavibe.domain.use_cases.ContactPersistencePort;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class ContactSQLPersistence implements ContactPersistencePort {
 
     private final ContactJpaRepository contactJpaRepository;
