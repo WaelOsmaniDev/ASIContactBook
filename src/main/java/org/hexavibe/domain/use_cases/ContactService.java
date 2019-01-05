@@ -2,6 +2,7 @@ package org.hexavibe.domain.use_cases;
 
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.entities.Contact;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ContactService implements ContactAppPort {
     private static final Logger LOGGER = Logger.getLogger(ContactService.class.getName());
     private ContactPersistencePort contactPersistencePort;
 
-    public ContactService(ContactPersistencePort contactPersistencePort) {
+    public ContactService(@Qualifier("ContactSQL") ContactPersistencePort contactPersistencePort) {
         this.contactPersistencePort = contactPersistencePort;
     }
 

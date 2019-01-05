@@ -1,6 +1,7 @@
 package org.hexavibe.domain.use_cases;
 
 import org.hexavibe.domain.entities.Company;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class CompanyService implements CompanyAppPort {
 
     private CompanyPersistencePort companyPersistencePort;
 
-    public CompanyService(CompanyPersistencePort companyPersistencePort) {
+    public CompanyService(@Qualifier("CompanySQL") CompanyPersistencePort companyPersistencePort) {
         this.companyPersistencePort = companyPersistencePort;
     }
 

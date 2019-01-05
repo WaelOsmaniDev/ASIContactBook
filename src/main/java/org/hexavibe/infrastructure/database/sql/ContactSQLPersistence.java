@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Component("ContactSQL")
 public class ContactSQLPersistence implements ContactPersistencePort {
 
     private final ContactJpaRepository contactJpaRepository;

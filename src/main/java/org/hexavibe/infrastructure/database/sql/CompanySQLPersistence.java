@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Component("CompanySQL")
 public class CompanySQLPersistence implements CompanyPersistencePort {
 
     private final CompanyJpaRepository companyJpaRepository;

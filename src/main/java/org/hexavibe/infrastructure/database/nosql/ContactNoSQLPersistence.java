@@ -4,14 +4,12 @@ import org.bson.types.ObjectId;
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.entities.Contact;
 import org.hexavibe.domain.use_cases.ContactPersistencePort;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@Primary
+@Component("ContactNoSQL")
 public class ContactNoSQLPersistence implements ContactPersistencePort {
 
     private final ContactMongoRepository contactMongoRepository;
