@@ -33,7 +33,7 @@ class ContactServiceTest {
         //GIVEN
         Company companyMock = new Company("MockBusiness", "21");
         Contact contactMock = new Contact(
-                "uuid21","Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
+                "uuid21", "Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
 
         Mockito.doReturn(contactMock).when(contactPersistencePort).getContactById(anyString());
 
@@ -50,7 +50,7 @@ class ContactServiceTest {
         //GIVEN
         Company newCompanyMock = new Company("MockitoBiz", "95");
         Contact updatedContactMock = new Contact(
-                "uuid21","Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", newCompanyMock);
+                "uuid21", "Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", newCompanyMock);
 
         Mockito.doReturn(updatedContactMock).when(contactPersistencePort).updateCompanyOfContact(anyString(), any(Company.class));
 
@@ -70,7 +70,7 @@ class ContactServiceTest {
         //GIVEN
         Company companyMock = new Company("MockBusiness", "21");
         Contact contactMock = new Contact(
-                "uuid21","Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
+                "uuid21", "Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
 
         Mockito.doReturn(contactMock).when(contactPersistencePort).saveContact(any(Contact.class));
 
@@ -87,9 +87,9 @@ class ContactServiceTest {
         //GIVEN
         Company companyMock = new Company("MockBusiness", "21");
         Contact contactMock1 = new Contact(
-                "uuid21","Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
+                "uuid21", "Mickey", "Mouse", LocalDate.of(1911, 02, 21), "1999", companyMock);
         Contact contactMock2 = new Contact(
-                "uuid212","Mickey2", "Mouse2", LocalDate.of(1912, 03, 22), "1992", companyMock);
+                "uuid212", "Mickey2", "Mouse2", LocalDate.of(1912, 03, 22), "1992", companyMock);
         List<Contact> contactsMock = Arrays.asList(contactMock1, contactMock2);
 
         Mockito.doReturn(contactsMock).when(contactPersistencePort).getAllContacts();

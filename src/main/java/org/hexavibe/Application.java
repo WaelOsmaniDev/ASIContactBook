@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
-    //TODO UTests, GET All Entities, Logs, Exception to REST, Profile config(JPA or Mongo), Put in different jars
+    //TODO UTests, Exception thrown from domain to REST, Profile config(JPA or Mongo), Put in different jars
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

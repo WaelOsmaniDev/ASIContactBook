@@ -2,7 +2,6 @@ package org.hexavibe.infrastructure.database.sql;
 
 import org.hexavibe.domain.entities.Company;
 import org.hexavibe.domain.use_cases.CompanyPersistencePort;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -5,10 +5,13 @@ import org.hexavibe.domain.entities.Contact;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class ContactService implements ContactAppPort {
 
+    private static final Logger LOGGER = Logger.getLogger(ContactService.class.getName());
     private ContactPersistencePort contactPersistencePort;
 
     public ContactService(ContactPersistencePort contactPersistencePort) {
@@ -20,7 +23,7 @@ public class ContactService implements ContactAppPort {
         try {
             return this.contactPersistencePort.getContactById(id);
         } catch (ContactNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         return null;
     }
@@ -30,7 +33,7 @@ public class ContactService implements ContactAppPort {
         try {
             return this.contactPersistencePort.updateCompanyOfContact(id, newCompany);
         } catch (ContactNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         return null;
     }
